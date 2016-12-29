@@ -40,6 +40,13 @@ module.exports = function (str) {
       : Math.sin(p.lat1),
     members.c = ms1*ms1 + members.ns0*qs1
     members.rh = e.a * Math.sqrt(members.c - members.ns0 * qs0) / members.ns0
+  } else if (p.projName === 'geocent') {
+    members = {
+      a: e.a,
+      b: e.b,
+      e: Math.sqrt((e.a*e.a-e.b*e.b)/(e.a*e.a)),
+      eprime: Math.sqrt((e.a*e.a-e.b*e.b)/(e.b*e.b))
+    }
   } else return null
   return {
     name: p.projName,
