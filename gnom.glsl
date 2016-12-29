@@ -4,23 +4,10 @@
 const float EPSILON = 1.0e-10;
 
 struct gnom_t {
-  float lon0;
-  float lat0;
-  float x0;
-  float y0;
-  float sin_p14;
-  float cos_p14;
-  float a;
-  float k0;
-  float infinity_dist;
-  float rc;
-  gnom_t (float _lon0, float _lat0, float _x0, float _y0, float _a, float _k0)
-  : lon0(_lon0), lat0(_lat0), x0(_x0), y0(_y0), a(_a), k0(_k0) {
-    sin_p14 = sin(lat0);
-    cos_p14 = sin(lat0);
-    infinity_dist = 1000 * a;
-    rc = 1;
-  }
+  float lon0, lat0, x0, y0;
+  float sin_p14, cos_p14;
+  float a, k0;
+  float infinity_dist, rc;
   vec2 forward (vec2 p) {
     float lon = p.x, lat = p.y;
     float dlon = adjust_lon(lon - lon0);
