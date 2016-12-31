@@ -1,10 +1,12 @@
 var parse = require('proj4/lib/parseCode')
 var ellipsoid = require('proj4/lib/constants/Ellipsoid')
+var derive = require('proj4/lib/deriveConstants')
 var defined = require('defined')
 
 module.exports = function (str) {
   var p = parse(str)
-  var e = ellipsoid[p.ellps]
+  var e = ellipsoid[p.ellps || p.datumCode]
+  e = derive.sphere(e.a, e.b, e.rf, p.ellps, p.sphere)
   var members = null
   if (p.projName === 'geom') {
     members = {
