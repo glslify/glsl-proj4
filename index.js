@@ -8,21 +8,21 @@ var defined = require('defined')
 module.exports = function (str) {
   var p = parse(str)
   var e = ellipsoid[p.ellps || p.datumCode]
-  e = derive.sphere(e.a, e.b, e.rf, p.ellps, p.sphere)
+  if (e && p) e = derive.sphere(e.a, e.b, e.rf, p.ellps, p.sphere)
   var members = null
-  if (p.projName === 'geom') {
+  if (p.projName === 'gnom') {
     members = {
-      lon0: p.long0,
-      lat0: p.lat0,
-      x0: p.x0,
-      y0: p.y0,
-      a: e.a,
-      k0: p.k0,
-      sin_p14: Math.sin(p.lat0),
-      cos_p14: Math.cos(p.lat0),
-      infinity_dist: 1000 * e.a,
+      lon0: p.long0/180*Math.PI,
+      lat0: p.lat0/180*Math.PI,
+      x0: p.x0/180*Math.PI,
+      y0: p.y0/180*Math.PI,
+      a: defined(p.a,e.a),
+      k0: defined(p.k0,1.0),
+      sin_p14: Math.sin(p.lat0/180*Math.PI),
+      cos_p14: Math.cos(p.lat0/180*Math.PI),
       rc: defined(p.rc, 1)
     }
+    members.infinity_dist = 1000 * members.a
   } else if (p.projName === 'aea') {
     members = {
       lon0: p.long0/180*Math.PI,
@@ -31,10 +31,10 @@ module.exports = function (str) {
       lat2: p.lat2/180*Math.PI,
       x0: p.x0,
       y0: p.y0,
-      a: e.a,
-      e3: Math.sqrt(1 - Math.pow(e.b / e.a, 2)),
+      a: defined(p.a,e.a),
       sphere: p.sphere ? 1.0 : 0.0
     }
+    members.e3 = Math.sqrt(1 - Math.pow(defined(p.b,e.b) / members.a, 2))
     var qs0 = qsfnz(members.e3, Math.sin(members.lat0))
     var qs1 = qsfnz(members.e3, Math.sin(members.lat1))
     var qs2 = qsfnz(members.e3, Math.sin(members.lat2))
@@ -46,11 +46,12 @@ module.exports = function (str) {
     members.c = ms1*ms1 + members.ns0*qs1
     members.rh = e.a * Math.sqrt(members.c - members.ns0 * qs0) / members.ns0
   } else if (p.projName === 'geocent') {
+    var a = defined(p.a,e.a), b = defined(p.b,e.b)
     members = {
-      a: e.a,
-      b: e.b,
-      e: Math.sqrt((e.a*e.a-e.b*e.b)/(e.a*e.a)),
-      eprime: Math.sqrt((e.a*e.a-e.b*e.b)/(e.b*e.b))
+      a: a,
+      b: b,
+      e: Math.sqrt((a*a-b*b)/(a*a)),
+      eprime: Math.sqrt((a*a-b*b)/(b*b))
     }
   } else return null
   return {
