@@ -1,7 +1,7 @@
 const float SPI = 3.14159265359;
 const float TAU = 6.283185307179586;
 
-float adjust_lon (x) {
+float adjust_lon (float x) {
   return abs(x) <= SPI ? x : (x - sign(x) * TAU);
 }
 

@@ -1,6 +1,8 @@
 var parse = require('proj4/lib/parseCode')
 var ellipsoid = require('proj4/lib/constants/Ellipsoid')
 var derive = require('proj4/lib/deriveConstants')
+var qsfnz = require('proj4/lib/common/qsfnz.js')
+var msfnz = require('proj4/lib/common/msfnz.js')
 var defined = require('defined')
 
 module.exports = function (str) {
@@ -33,13 +35,14 @@ module.exports = function (str) {
       e3: Math.sqrt(1 - Math.pow(e.b / e.a, 2)),
       sphere: p.sphere ? 1.0 : 0.0
     }
-    var qs0 = qsfnz(members.e3, Math.sin(p.lat0), Math.cos(p.lat0))
-    var qs1 = qsfnz(members.e3, Math.sin(p.lat1), Math.cos(p.lat1))
-    var qs2 = qsfnz(members.e3, Math.sin(p.lat2), Math.cos(p.lat2))
-    var ms1 = msfnz(members.e3, Mat.sin(p.lat1), Math.cos(p.lat1))
+    var qs0 = qsfnz(members.e3, Math.sin(p.lat0/180*Math.PI))
+    var qs1 = qsfnz(members.e3, Math.sin(p.lat1/180*Math.PI))
+    var qs2 = qsfnz(members.e3, Math.sin(p.lat2/180*Math.PI))
+    var ms1 = msfnz(members.e3, Math.sin(p.lat1/180*Math.PI),
+      Math.cos(p.lat1/180*Math.PI))
     members.ns0 = p.lat1 - p.lat2 > 1.0e-10
       ? (ms1*ms1 - ms2*ms2) / (qs2 - qs1)
-      : Math.sin(p.lat1),
+      : Math.sin(p.lat1/180*Math.PI),
     members.c = ms1*ms1 + members.ns0*qs1
     members.rh = e.a * Math.sqrt(members.c - members.ns0 * qs0) / members.ns0
   } else if (p.projName === 'geocent') {

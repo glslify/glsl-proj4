@@ -1,13 +1,9 @@
-#pragma glslify: adjust_lon = require('./lib/adjust_lon.glsl')
-#pragma glslify: asinz = require('./lib/asinz.glsl')
+
+#pragma glslify: adjust_lon = require('../lib/adjust_lon.glsl')
+#pragma glslify: asinz = require('../lib/asinz.glsl')
 
 const float EPSILON = 1.0e-10;
 
-struct aea_t {
-  float lon0, lat0, lat1, lat2;
-  float x0, y0, e3;
-  float ns0, rh, a, c;
-  float sphere;
   vec2 forward (vec2 p) {
     float lon = p.x, lat = p.y;
     float sin_phi = sin(lat);
