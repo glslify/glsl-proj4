@@ -9,7 +9,7 @@ vec2 aea_forward (aea_t t, vec2 p) {
   float cosphi = cos(lat);
   float qs = qsfnz(t.e3, sinphi);
   float rh1 = t.a * sqrt(t.c - t.ns0 * qs) / t.ns0;
-  float theta = t.ns0 * (lon - t.lon0/180.0*PI);
+  float theta = t.ns0 * (lon - t.lon0);
   return vec2(
     rh1 * sin(theta) + t.x0,
     t.rh - rh1 * cos(theta) + t.y0

@@ -25,24 +25,24 @@ module.exports = function (str) {
     }
   } else if (p.projName === 'aea') {
     members = {
-      lon0: p.long0,
-      lat0: p.lat0,
-      lat1: p.lat1,
-      lat2: p.lat2,
+      lon0: p.long0/180*Math.PI,
+      lat0: p.lat0/180*Math.PI,
+      lat1: p.lat1/180*Math.PI,
+      lat2: p.lat2/180*Math.PI,
       x0: p.x0,
       y0: p.y0,
       a: e.a,
       e3: Math.sqrt(1 - Math.pow(e.b / e.a, 2)),
       sphere: p.sphere ? 1.0 : 0.0
     }
-    var qs0 = qsfnz(members.e3, Math.sin(p.lat0/180*Math.PI))
-    var qs1 = qsfnz(members.e3, Math.sin(p.lat1/180*Math.PI))
-    var qs2 = qsfnz(members.e3, Math.sin(p.lat2/180*Math.PI))
-    var ms1 = msfnz(members.e3, Math.sin(p.lat1/180*Math.PI),
-      Math.cos(p.lat1/180*Math.PI))
-    members.ns0 = p.lat1 - p.lat2 > 1.0e-10
+    var qs0 = qsfnz(members.e3, Math.sin(members.lat0))
+    var qs1 = qsfnz(members.e3, Math.sin(members.lat1))
+    var qs2 = qsfnz(members.e3, Math.sin(members.lat2))
+    var ms1 = msfnz(members.e3, Math.sin(members.lat1),
+      Math.cos(members.lat1))
+    members.ns0 = members.lat1 - members.lat2 > 1.0e-10
       ? (ms1*ms1 - ms2*ms2) / (qs2 - qs1)
-      : Math.sin(p.lat1/180*Math.PI),
+      : Math.sin(members.lat1),
     members.c = ms1*ms1 + members.ns0*qs1
     members.rh = e.a * Math.sqrt(members.c - members.ns0 * qs0) / members.ns0
   } else if (p.projName === 'geocent') {
