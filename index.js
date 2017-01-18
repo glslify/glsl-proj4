@@ -59,8 +59,8 @@ module.exports = function (str) {
       eprime: Math.sqrt((a*a-b*b)/(b*b))
     }
   } else if (p.projName === 'tmerc') {
-    var es = defined(p.es, e.es)
     var a = defined(p.a,e.a), b = defined(p.b,e.b)
+    var es = defined(p.es, e.es, (a*a-b*b)/(a*a))
     members = {
       lon0: p.long0/180*Math.PI,
       lat0: p.lat0/180*Math.PI,

@@ -1,5 +1,4 @@
 #pragma glslify: tmerc_t = require('./t.glsl')
-#pragma glslify: adjust_lon = require('../lib/adjust_lon.glsl')
 #pragma glslify: mlfn = require('../lib/mlfn.glsl')
 
 const float PI = 3.141592653589793;
@@ -7,7 +6,7 @@ const float EPSILON = 1e-10;
 
 vec2 tmerc_forward (tmerc_t t, vec2 p) {
   float lon = p.x/180.0*PI, lat = p.y/180.0*PI;
-  float dlon = adjust_lon(lon - t.lon0);
+  float dlon = lon - t.lon0;
   float sinphi = sin(lat), cosphi = cos(lat);
   float con;
   if (t.sphere > 0.5) {
