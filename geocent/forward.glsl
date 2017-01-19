@@ -14,4 +14,7 @@ vec3 geocent_forward (geocent_t t, vec3 p) { // lon lat height
     (N+p.z)*sinlon*coslat
   );
 }
+vec3 geocent_forward (geocent_t t, vec2 p) {
+  return geocent_forward(t,vec3(p,0));
+}
 #pragma glslify: export(geocent_forward)
