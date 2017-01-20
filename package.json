@@ -25,5 +25,13 @@
     "glslify"
   ],
   "author": "substack",
-  "license": "BSD"
+  "license": "BSD",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/substack/glsl-proj4.git"
+  },
+  "bugs": {
+    "url": "https://github.com/substack/glsl-proj4/issues"
+  },
+  "homepage": "https://github.com/substack/glsl-proj4#readme"
 }
