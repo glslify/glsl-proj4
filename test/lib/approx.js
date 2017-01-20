@@ -12,6 +12,6 @@ function almost (a, b, e) {
 }
 
 function ep (a, b) {
-  return Math.max(0.1, Math.pow(2,
+  return Math.max(4, Math.pow(2,
     Math.log(Math.max(Math.abs(a),Math.abs(b)))/Math.log(2)-16))
 }
