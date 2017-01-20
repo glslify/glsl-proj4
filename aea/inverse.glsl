@@ -22,17 +22,21 @@ float phi1z (float eccent, float qs) {
   }
   return 1e400;
 }
-vec2 aea_inverse (aea_t t, vec2 p) {
+vec3 aea_inverse (aea_t t, vec3 p) {
   float px = p.x - t.x0, py = t.rh - p.y + t.y0;
   float con = sign(t.ns0);
   float rh1 = con * sqrt(px*px + py*py);
   float theta = step(EPSILON,abs(rh1)) * atan(con * px, con * py);
   con = rh1 * t.ns0 / t.a;
-  return vec2(
-    adjust_lon(theta / t.ns0 + t.lon0),
-    t.sphere > EPSILON
+  return vec3(
+    adjust_lon(theta / t.ns0 + t.lon0)*180.0/PI,
+    (t.sphere > EPSILON
       ? asin((t.c-con*con)/(2.0*t.ns0))
-      : phi1z(t.e3,(t.c-con*con)/t.ns0)
-  )*180.0/PI;
+      : phi1z(t.e3,(t.c-con*con)/t.ns0))*180.0/PI,
+    p.z
+  );
+}
+vec3 aea_inverse (aea_t t, vec2 p) {
+  return aea_inverse(t,vec3(p,0));
 }
 #pragma glslify: export(aea_inverse)
