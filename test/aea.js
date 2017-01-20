@@ -1,6 +1,6 @@
 var glsl = require('glslify')
 var forward = require('./lib/forward.js')
-var almost = require('almost-equal')
+var approx = require('./lib/approx.js')
 var test = require('tape')
 
 // echo -155.8758121 19.5478602 \
@@ -44,9 +44,3 @@ test('aea forward inverse forward', function (t) {
   approx(t, pt, [118304.34,726045.92,0])
   t.end()
 })
-
-function approx (t, a, b) {
-  var ep = Math.pow(2,Math.log(a[0])/Math.log(2)-17)
-  t.ok(almost(a[0], b[0], ep), `${a[0]} cmp ${b[0]}`)
-  t.ok(almost(a[1], b[1], ep), `${a[1]} cmp ${b[1]}`)
-}

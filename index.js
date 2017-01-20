@@ -12,7 +12,7 @@ var defined = require('defined')
 
 module.exports = function (str) {
   var p = parse(str)
-  var e = ellipsoid[p.ellps || p.datumCode]
+  var e = ellipsoid[p.ellps || p.datumCode || 'WGS84'] || {}
   if (e && p) e = derive.sphere(e.a, e.b, e.rf, p.ellps, p.sphere)
   var members = null
   if (p.projName === 'gnom') {
