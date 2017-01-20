@@ -17,23 +17,23 @@ module.exports = function (str) {
   var members = null
   if (p.projName === 'gnom') {
     members = {
-      lon0: p.long0/180*Math.PI,
-      lat0: p.lat0/180*Math.PI,
-      x0: p.x0/180*Math.PI,
-      y0: p.y0/180*Math.PI,
+      lon0: p.long0,
+      lat0: p.lat0,
+      x0: p.x0,
+      y0: p.y0,
       a: defined(p.a,e.a),
       k0: defined(p.k0,1.0),
-      sin_p14: Math.sin(p.lat0/180*Math.PI),
-      cos_p14: Math.cos(p.lat0/180*Math.PI),
+      sin_p14: Math.sin(p.lat0),
+      cos_p14: Math.cos(p.lat0),
       rc: defined(p.rc, 1)
     }
     members.infinity_dist = 1000 * members.a
   } else if (p.projName === 'aea') {
     members = {
-      lon0: p.long0/180*Math.PI,
-      lat0: p.lat0/180*Math.PI,
-      lat1: p.lat1/180*Math.PI,
-      lat2: p.lat2/180*Math.PI,
+      lon0: p.long0,
+      lat0: p.lat0,
+      lat1: p.lat1,
+      lat2: p.lat2,
       x0: p.x0,
       y0: p.y0,
       a: defined(p.a,e.a),
@@ -45,7 +45,9 @@ module.exports = function (str) {
     var qs2 = qsfnz(members.e3, Math.sin(members.lat2))
     var ms1 = msfnz(members.e3, Math.sin(members.lat1),
       Math.cos(members.lat1))
-    members.ns0 = members.lat1 - members.lat2 > 1.0e-10
+    var ms2 = msfnz(members.e3, Math.sin(members.lat2),
+      Math.cos(members.lat2))
+    members.ns0 = Math.abs(members.lat1 - members.lat2) > 1.0e-10
       ? (ms1*ms1 - ms2*ms2) / (qs2 - qs1)
       : Math.sin(members.lat1),
     members.c = ms1*ms1 + members.ns0*qs1
@@ -62,10 +64,10 @@ module.exports = function (str) {
     var a = defined(p.a,e.a), b = defined(p.b,e.b)
     var es = defined(p.es, e.es, (a*a-b*b)/(a*a))
     members = {
-      lon0: p.long0/180*Math.PI,
-      lat0: p.lat0/180*Math.PI,
-      x0: p.x0/180*Math.PI,
-      y0: p.y0/180*Math.PI,
+      lon0: p.long0,
+      lat0: p.lat0,
+      x0: p.x0,
+      y0: p.y0,
       a: defined(p.a,e.a),
       k0: defined(p.k0,1.0),
       sphere: p.sphere ? 1.0 : 0.0,
