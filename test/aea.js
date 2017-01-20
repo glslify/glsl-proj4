@@ -12,7 +12,7 @@ test('aea forward', function (t) {
   var p = `+proj=aea +lat_1=8 +lat_2=18 +lat_0=13 +lon_0=-157 +x_0=0 +y_0=0
     +ellps=GRS80 +datum=NAD83 +units=m +no_defs`
   var pt = forward(p, [-155.8758121,19.5478602,0], glsl`
-    precision mediump float;
+    precision highp float;
     #pragma glslify: forward = require('../aea/forward')
     #pragma glslify: proj_t = require('../aea/t')
     uniform proj_t proj;
@@ -30,7 +30,7 @@ test('aea forward inverse forward', function (t) {
   var p = `+proj=aea +lat_1=8 +lat_2=18 +lat_0=13 +lon_0=-157 +x_0=0 +y_0=0
     +ellps=GRS80 +datum=NAD83 +units=m +no_defs`
   var pt = forward(p, [-155.8758121,19.5478602,0], glsl`
-    precision mediump float;
+    precision highp float;
     #pragma glslify: forward = require('../aea/forward')
     #pragma glslify: inverse = require('../aea/inverse')
     #pragma glslify: proj_t = require('../aea/t')

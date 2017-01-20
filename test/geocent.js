@@ -9,7 +9,7 @@ var test = require('tape')
 test('geocent forward', function (t) {
   var p = '+proj=geocent'
   var pt = forward(p, [-155.8758121,19.5478602,0], glsl`
-    precision mediump float;
+    precision highp float;
     #pragma glslify: forward = require('../geocent/forward')
     #pragma glslify: proj_t = require('../geocent/t')
     uniform proj_t proj;
@@ -26,7 +26,7 @@ test('geocent forward', function (t) {
 test('aea forward inverse forward', function (t) {
   var p = '+proj=geocent'
   var pt = forward(p, [-155.8758121,19.5478602,0], glsl`
-    precision mediump float;
+    precision highp float;
     #pragma glslify: forward = require('../geocent/forward')
     #pragma glslify: inverse = require('../geocent/inverse')
     #pragma glslify: proj_t = require('../geocent/t')
