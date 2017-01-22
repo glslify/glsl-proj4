@@ -59,7 +59,10 @@ module.exports = function (str) {
       a: a,
       b: b,
       e: Math.sqrt((a*a-b*b)/(a*a)),
-      eprime: Math.sqrt((a*a-b*b)/(b*b))
+      eprime: Math.sqrt((a*a-b*b)/(b*b)),
+      x0: defined(p.x0,0),
+      y0: defined(p.y0,0),
+      z0: defined(p.z0,0)
     }
   } else if (p.projName === 'tmerc') {
     var a = defined(p.a,e.a), b = defined(p.b,e.b)
