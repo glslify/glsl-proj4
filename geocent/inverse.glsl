@@ -1,7 +1,9 @@
 #pragma glslify: geocent_t = require('./t.glsl')
 const float PI = 3.141592653589793;
 vec3 geocent_inverse (geocent_t t, vec3 p) {
-  float px = p.x-t.x0, py = p.y-t.y0, pz = p.z-t.z0;
+  float px = (p.x-t.x0)/t.k0;
+  float py = (p.y-t.y0)/t.k0;
+  float pz = (p.z-t.z0)/t.k0;
   float sqp = sqrt(px*px+py*py);
   float theta = atan(pz*t.a,sqp*t.b);
   float sintheta = sin(theta), costheta = cos(theta);

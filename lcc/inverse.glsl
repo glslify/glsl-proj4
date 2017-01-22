@@ -25,10 +25,12 @@ vec3 lcc_inverse (lcc_t t, vec3 p) {
     return vec3(
       (theta/t.ns + t.lon0)*180.0/PI,
       phi2z(t.e, ts)*180.0/PI,
-      p.z
+      (p.z-t.z0)/t.k0
     );
   } else {
-    return vec3((theta/t.ns + t.lon0)*180.0/PI, -90.0, p.z);
+    return vec3(
+      (theta/t.ns + t.lon0)*180.0/PI,
+      -90.0,(p.z-t.z0)/t.k0);
   }
 }
 vec3 lcc_inverse (lcc_t t, vec2 p) {

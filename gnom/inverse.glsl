@@ -14,7 +14,7 @@ vec3 gnom_inverse (gnom_t t, vec3 p) {
   return vec3(
     adjust_lon(t.lon0+atan(px*sinc,rh*t.cos_p14*cosc-py*t.sin_p14*sinc))*180.0/PI,
     asinz(cosc*t.sin_p14+(py*sinc*t.cos_p14)/rh)*180.0/PI,
-    p.z
+    (p.z-t.z0)/t.k0
   );
 }
 vec3 gnom_inverse (gnom_t t, vec2 p) {

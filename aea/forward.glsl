@@ -11,9 +11,9 @@ vec3 aea_forward (aea_t t, vec3 p) {
   float rh1 = t.a * sqrt(t.c - t.ns0 * qs) / t.ns0;
   float theta = t.ns0 * (lon - t.lon0);
   return vec3(
-    rh1 * sin(theta) + t.x0,
-    t.rh - rh1 * cos(theta) + t.y0,
-    p.z + t.z0
+    t.x0+t.k0*rh1*sin(theta),
+    t.y0+t.k0*(t.rh-rh1*cos(theta)),
+    t.z0+t.k0*p.z
   );
 }
 vec3 aea_forward (aea_t t, vec2 p) {

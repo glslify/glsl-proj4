@@ -23,7 +23,8 @@ float phi1z (float eccent, float qs) {
   return 1e400;
 }
 vec3 aea_inverse (aea_t t, vec3 p) {
-  float px = p.x - t.x0, py = t.rh - p.y + t.y0;
+  float px = (p.x-t.x0)/t.k0;
+  float py = (t.rh-p.y+t.y0)/t.k0;
   float con = sign(t.ns0);
   float rh1 = con * sqrt(px*px + py*py);
   float theta = step(EPSILON,abs(rh1)) * atan(con * px, con * py);
@@ -33,7 +34,7 @@ vec3 aea_inverse (aea_t t, vec3 p) {
     (t.sphere > EPSILON
       ? asin((t.c-con*con)/(2.0*t.ns0))
       : phi1z(t.e3,(t.c-con*con)/t.ns0))*180.0/PI,
-    p.z
+    (p.z-t.z0)/t.k0
   );
 }
 vec3 aea_inverse (aea_t t, vec2 p) {

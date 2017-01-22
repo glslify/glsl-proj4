@@ -15,7 +15,7 @@ vec3 tmerc_inverse (tmerc_t t, vec3 p) {
     return vec3(
       (atan(g,h)+t.lon0)*180.0/PI,
       (asinz(sqrt(1.0-h*h)/(1.0+g*g))*sign(con))*180.0/PI,
-      p.z
+      (p.z-t.z0)/t.k0
     );
   }
   float x = p.x-t.x0;
@@ -29,7 +29,7 @@ vec3 tmerc_inverse (tmerc_t t, vec3 p) {
     if (abs(dphi) < EPSILON) break;
   }
   if (abs(phi) >= PI/2.0) {
-    return vec3(t.lon0*180.0/PI,90.0*sign(y),p.z);
+    return vec3(t.lon0*180.0/PI,90.0*sign(y),(p.z-t.z0)/t.k0);
   }
   float sinphi = sin(phi), cosphi = cos(phi), tanphi = tan(phi);
   float c = t.ep2*cosphi*cosphi;
@@ -46,7 +46,7 @@ vec3 tmerc_inverse (tmerc_t t, vec3 p) {
       (5.0-2.0*c+28.0*t2-3.0*cs+8.0*t.ep2+24.0*ts)))/cosphi)*180.0/PI,
     (phi-(n*tanphi*ds/r)*(0.5-ds/24.0*(5.0+3.0*t2+10.0*c-4.0*cs-9.0*t.ep2
       -ds/30.0*(61.0+90.0*t2+298.0*c+45.0*ts-252.0*t.ep2-3.0*cs))))*180.0/PI,
-    p.z
+    (p.z-t.z0)/t.k0
   );
 }
 vec3 tmerc_inverse (tmerc_t t, vec2 p) {

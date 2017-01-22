@@ -24,7 +24,7 @@ module.exports = function (str) {
       y0: defined(p.y0,0),
       z0: defined(p.z0,0),
       a: defined(p.a,e.a),
-      k0: defined(p.k0,1.0),
+      k0: defined(p.k0,p.k,1),
       sin_p14: Math.sin(p.lat0),
       cos_p14: Math.cos(p.lat0),
       rc: defined(p.rc, 1)
@@ -39,6 +39,7 @@ module.exports = function (str) {
       x0: defined(p.x0,0),
       y0: defined(p.y0,0),
       z0: defined(p.z0,0),
+      k0: defined(p.k0,p.k,1),
       a: defined(p.a,e.a),
       sphere: p.sphere ? 1.0 : 0.0
     }
@@ -64,7 +65,8 @@ module.exports = function (str) {
       eprime: Math.sqrt((a*a-b*b)/(b*b)),
       x0: defined(p.x0,0),
       y0: defined(p.y0,0),
-      z0: defined(p.z0,0)
+      z0: defined(p.z0,0),
+      k0: defined(p.k0,p.k,1)
     }
   } else if (p.projName === 'tmerc') {
     var a = defined(p.a,e.a), b = defined(p.b,e.b)
@@ -76,7 +78,7 @@ module.exports = function (str) {
       y0: defined(p.y0,0),
       z0: defined(p.z0,0),
       a: defined(p.a,e.a),
-      k0: defined(p.k0,1.0),
+      k0: defined(p.k0,p.k,1),
       sphere: p.sphere ? 1.0 : 0.0,
       e0: e0fn(es),
       e1: e1fn(es),
@@ -108,7 +110,7 @@ module.exports = function (str) {
       x0: defined(p.x0, 0),
       y0: defined(p.y0, 0),
       z0: defined(p.z0,0),
-      k0: defined(p.k0, 1),
+      k0: defined(p.k0,p.k,1),
       a: a,
       b: b,
       e: e,

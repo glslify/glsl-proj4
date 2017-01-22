@@ -9,9 +9,9 @@ vec3 geocent_forward (geocent_t t, vec3 p) { // lon lat height
   float e2 = (2.0-f)*f;
   float N = t.a / sqrt(1.0-e2*sinlat*sinlat);
   return vec3(
-    t.x0-(N+p.z)*coslon*coslat,
-    t.y0-(N+p.z)*sinlon*coslat,
-    t.z0+(N*(1.0-e2)+p.z)*sinlat
+    t.x0-t.k0*(N+p.z)*coslon*coslat,
+    t.y0-t.k0*(N+p.z)*sinlon*coslat,
+    t.z0+t.k0*(N*(1.0-e2)+p.z)*sinlat
   );
 }
 vec3 geocent_forward (geocent_t t, vec2 p) {

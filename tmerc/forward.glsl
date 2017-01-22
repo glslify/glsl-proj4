@@ -13,9 +13,9 @@ vec3 tmerc_forward (tmerc_t t, vec3 p) {
     float b = cosphi * sin(dlon);
     con = acos(cosphi*cos(dlon)/sqrt(1.0-b*b))*sign(lat);
     return vec3(
-      0.5*t.a*t.k0*log((1.0+b)/(1.0-b)),
-      t.a*t.k0*(con-t.lat0),
-      p.z
+      t.x0+0.5*t.a*t.k0*log((1.0+b)/(1.0-b)),
+      t.y0+t.a*t.k0*(con-t.lat0),
+      t.z0+t.k0*p.z
     );
   }
   float al = cosphi*dlon;
@@ -31,7 +31,7 @@ vec3 tmerc_forward (tmerc_t t, vec3 p) {
       *(5.0-18.0*tq2+tq2*tq2+72.0*c-58.0*t.ep2))),
     t.y0+t.k0*(ml-t.ml0+n*tq*(als*(0.5+als/24.0*(5.0-tq2+9.0*c+4.0*c*c+als/30.0
       *(61.0-58.0*tq2+tq2*tq2+600.0*c-330.0*t.ep2))))),
-    t.z0+p.z
+    t.z0+t.k0*p.z
   );
 }
 vec3 tmerc_forward (tmerc_t t, vec2 p) {
