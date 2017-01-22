@@ -30,23 +30,30 @@ var draw = regl({
   `,
   vert: glsl`
     precision mediump float;
-    #pragma glslify: forward = require('../aea/forward')
-    #pragma glslify: proj_t = require('../aea/t')
+    #pragma glslify: forward = require('glsl-proj4/aea/forward')
+    #pragma glslify: proj_t = require('glsl-proj4/aea/t')
     uniform proj_t proj;
+    uniform float aspect;
     attribute vec2 position;
     void main () {
-      vec3 p = forward(proj, position);
+      vec3 p = forward(proj, position)*vec3(1,aspect,1);
       gl_Position = vec4(p*1e-6,1);
     }
   `,
   attributes: {
     position: mesh.positions
   },
-  uniforms: p.members('proj'),
+  uniforms: Object.assign(p.members('proj'), {
+    aspect: function (context) {
+      return context.viewportWidth / context.viewportHeight
+    }
+  }),
   elements: mesh.cells
 })
-regl.clear({ color: [1,1,1,1], depth: true })
-draw()
+regl.frame(function () {
+  regl.clear({ color: [1,1,1,1], depth: true })
+  draw()
+})
 ```
 
 # javascript api
