@@ -16,13 +16,13 @@ vec3 gnom_forward (gnom_t t, vec3 p) {
     return vec3(
       t.x0+t.a*ksp*cosphi*sin(dlon)/g,
       t.y0+t.a*ksp*(t.cos_p14*sinphi-t.sin_p14*cosphi*coslon)/g,
-      p.z
+      t.z0+p.z
     );
   } else {
     return vec3(
       t.x0+t.infinity_dist*cosphi*sin(dlon),
       t.y0+t.infinity_dist*(t.cos_p14*sinphi-t.sin_p14*cosphi*coslon),
-      p.z
+      t.z0+p.z
     );
   }
 }

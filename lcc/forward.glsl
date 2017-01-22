@@ -18,9 +18,9 @@ vec3 lcc_forward (lcc_t t, vec3 p) {
   }
   float theta = t.ns * (lon - t.lon0);
   return vec3(
-    t.k0*rh1*sin(theta)+t.x0,
-    t.k0*(t.rh-rh1*cos(theta))+t.y0,
-    p.z
+    t.x0+t.k0*rh1*sin(theta),
+    t.y0+t.k0*(t.rh-rh1*cos(theta)),
+    t.z0+p.z
   );
 }
 vec3 lcc_forward (lcc_t t, vec2 p) {

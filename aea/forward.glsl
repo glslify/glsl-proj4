@@ -13,7 +13,7 @@ vec3 aea_forward (aea_t t, vec3 p) {
   return vec3(
     rh1 * sin(theta) + t.x0,
     t.rh - rh1 * cos(theta) + t.y0,
-    p.z
+    p.z + t.z0
   );
 }
 vec3 aea_forward (aea_t t, vec2 p) {

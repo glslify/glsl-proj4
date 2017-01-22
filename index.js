@@ -20,8 +20,9 @@ module.exports = function (str) {
     members = {
       lon0: p.long0,
       lat0: p.lat0,
-      x0: p.x0,
-      y0: p.y0,
+      x0: defined(p.x0,0),
+      y0: defined(p.y0,0),
+      z0: defined(p.z0,0),
       a: defined(p.a,e.a),
       k0: defined(p.k0,1.0),
       sin_p14: Math.sin(p.lat0),
@@ -35,8 +36,9 @@ module.exports = function (str) {
       lat0: p.lat0,
       lat1: p.lat1,
       lat2: p.lat2,
-      x0: p.x0,
-      y0: p.y0,
+      x0: defined(p.x0,0),
+      y0: defined(p.y0,0),
+      z0: defined(p.z0,0),
       a: defined(p.a,e.a),
       sphere: p.sphere ? 1.0 : 0.0
     }
@@ -70,8 +72,9 @@ module.exports = function (str) {
     members = {
       lon0: p.long0,
       lat0: p.lat0,
-      x0: p.x0,
-      y0: p.y0,
+      x0: defined(p.x0,0),
+      y0: defined(p.y0,0),
+      z0: defined(p.z0,0),
       a: defined(p.a,e.a),
       k0: defined(p.k0,1.0),
       sphere: p.sphere ? 1.0 : 0.0,
@@ -104,6 +107,7 @@ module.exports = function (str) {
       lat2: defined(p.lat2, p.lat1),
       x0: defined(p.x0, 0),
       y0: defined(p.y0, 0),
+      z0: defined(p.z0,0),
       k0: defined(p.k0, 1),
       a: a,
       b: b,

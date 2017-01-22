@@ -27,11 +27,11 @@ vec3 tmerc_forward (tmerc_t t, vec3 p) {
   float n = t.a/sqrt(con);
   float ml = t.a*mlfn(t.e0,t.e1,t.e2,t.e3,lat);
   return vec3(
-    t.k0*n*al*(1.0+als/6.0*(1.0-tq2+c+als/20.0
-      *(5.0-18.0*tq2+tq2*tq2+72.0*c-58.0*t.ep2)))+t.x0,
-    t.k0*(ml-t.ml0+n*tq*(als*(0.5+als/24.0*(5.0-tq2+9.0*c+4.0*c*c+als/30.0
-      *(61.0-58.0*tq2+tq2*tq2+600.0*c-330.0*t.ep2)))))+t.y0,
-    p.z
+    t.x0+t.k0*n*al*(1.0+als/6.0*(1.0-tq2+c+als/20.0
+      *(5.0-18.0*tq2+tq2*tq2+72.0*c-58.0*t.ep2))),
+    t.y0+t.k0*(ml-t.ml0+n*tq*(als*(0.5+als/24.0*(5.0-tq2+9.0*c+4.0*c*c+als/30.0
+      *(61.0-58.0*tq2+tq2*tq2+600.0*c-330.0*t.ep2))))),
+    t.z0+p.z
   );
 }
 vec3 tmerc_forward (tmerc_t t, vec2 p) {
