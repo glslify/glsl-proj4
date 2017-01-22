@@ -4,6 +4,7 @@
   "description": "proj4 coordinate transforms in glsl",
   "main": "index.js",
   "dependencies": {
+    "defined": "^1.0.0",
     "proj4": "~2.3.15"
   },
   "devDependencies": {
