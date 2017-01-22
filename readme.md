@@ -4,10 +4,11 @@ proj4 implementation for glsl
 
 implemented projections:
 
-* aea
-* geocent
-* gnom
-* tmerc
+* aea - [albers equal area](http://proj4.org/projections/aea.html)
+* geocent - [geocentric (ecef) coordinates](https://en.wikipedia.org/wiki/ECEF)
+* gnom - [gnomic projection](http://proj4.org/projections/gnom.html)
+* lcc - [lambert conformal conic](http://proj4.org/projections/lcc.html)
+* tmerc - [transverse mercator](http://proj4.org/projections/tmerc.html)
 
 # example
 
@@ -89,6 +90,10 @@ String name of the projection.
 #pragma glslify: gnom_t = require('glsl-proj4/gnom/t')
 #pragma glslify: gnom_forward = require('glsl-proj4/gnom/forward')
 #pragma glslify: gnom_inverse = require('glsl-proj4/gnom/inverse')
+
+#pragma glslify: lcc_t = require('glsl-proj4/lcc/t')
+#pragma glslify: lcc_forward = require('glsl-proj4/lcc/forward')
+#pragma glslify: lcc_inverse = require('glsl-proj4/lcc/inverse')
 
 #pragma glslify: tmerc_t = require('glsl-proj4/tmerc/t')
 #pragma glslify: tmerc_forward = require('glsl-proj4/tmerc/forward')
