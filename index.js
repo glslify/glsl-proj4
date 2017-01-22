@@ -9,7 +9,6 @@ var e1fn = require('proj4/lib/common/e1fn.js')
 var e2fn = require('proj4/lib/common/e2fn.js')
 var e3fn = require('proj4/lib/common/e3fn.js')
 var mlfn = require('proj4/lib/common/mlfn.js')
-var proj = require('proj4')
 var defined = require('defined')
 
 module.exports = function (str) {
