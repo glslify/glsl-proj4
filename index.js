@@ -3,11 +3,13 @@ var ellipsoid = require('proj4/lib/constants/Ellipsoid')
 var derive = require('proj4/lib/deriveConstants')
 var qsfnz = require('proj4/lib/common/qsfnz.js')
 var msfnz = require('proj4/lib/common/msfnz.js')
+var tsfnz = require('proj4/lib/common/tsfnz.js')
 var e0fn = require('proj4/lib/common/e0fn.js')
 var e1fn = require('proj4/lib/common/e1fn.js')
 var e2fn = require('proj4/lib/common/e2fn.js')
 var e3fn = require('proj4/lib/common/e3fn.js')
 var mlfn = require('proj4/lib/common/mlfn.js')
+var proj = require('proj4')
 var defined = require('defined')
 
 module.exports = function (str) {
@@ -80,6 +82,34 @@ module.exports = function (str) {
     }
     members.ml0 = a * mlfn(members.e0,members.e1,
       members.e2,members.e3,members.lat0)
+  } else if (p.projName === 'lcc') {
+    var a = defined(p.a,e.a), b = defined(p.b,e.b)
+    var e = Math.sqrt(1-(b/a)*(b/a))
+    var ms1 = msfnz(e, Math.sin(p.lat1), Math.cos(p.lat1))
+    var ms2 = msfnz(e, Math.sin(p.lat2), Math.cos(p.lat2))
+    var ts0 = tsfnz(e, p.lat0, Math.sin(p.lat0))
+    var ts1 = tsfnz(e, p.lat1, Math.sin(p.lat1))
+    var ts2 = tsfnz(e, p.lat2, Math.sin(p.lat2))
+    var ns = Math.abs(p.lat1 - p.lat2) > 1e-10
+      ? Math.log(ms1/ms2)/Math.log(ts1/ts2)
+      : Math.sin(p.lat1)
+    if (isNaN(ns)) ns = Math.sin(p.lat1)
+    var f0 = ms1 / (ns * Math.pow(ts1, ns))
+    members = {
+      lon0: p.long0,
+      lat0: p.lat0,
+      lat1: p.lat1,
+      lat2: defined(p.lat2, p.lat1),
+      x0: defined(p.x0, 0),
+      y0: defined(p.y0, 0),
+      k0: defined(p.k0, 1),
+      a: a,
+      b: b,
+      e: e,
+      ns: ns,
+      f0: f0,
+      rh: a * f0 * Math.pow(ts0, ns)
+    }
   } else return null
   return {
     name: p.projName,
