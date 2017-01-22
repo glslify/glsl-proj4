@@ -113,3 +113,6 @@ npm install glsl-proj4
 # license
 
 BSD
+
+Parts of this library were adapted from
+[proj4js](https://github.com/proj4js/proj4js).
