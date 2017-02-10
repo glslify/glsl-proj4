@@ -112,7 +112,7 @@ Forward project `pt` using the parameters from `t` with an altitude of 0.
 
 Inverse project `pt` using the parameters from `t`.
 
-## vec3 proj_inverse(proj_t t, vec3 pt)
+## vec3 proj_inverse(proj_t t, vec2 pt)
 
 Inverse project `pt` using the parameters from `t` and an altitude of 0.
 
