@@ -3,4 +3,3 @@ float qsfnz (float eccent, float sinphi) {
   float c = eccent * sinphi;
   return (1.0-eccent*eccent)*(sinphi/(1.0-c*c)-(0.5/eccent)*log((1.0-c)/(1.0+c)));
 }
-#pragma glslify: export(qsfnz)
