@@ -8,34 +8,35 @@ import geocent from './geocent';
 import tmerc from './tmerc';
 import lcc from './lcc';
 
-function glsl_proj(str) {
-  var p = parse(str)
-  var e = ellipsoid[p.ellps || p.datumCode || 'WGS84'] || {}
-  if (e && p) e = derive.sphere(e.a, e.b, e.rf, p.ellps, p.sphere)
-  var members = null
+function glsl_proj(name, strOrProj) {
+  var p = strOrProj.projName ? strOrProj : parse(strOrProj);
+  var e = ellipsoid[p.ellps || p.datumCode || 'WGS84'] || {};
+  if (e && p) e = derive.sphere(e.a, e.b, e.rf, p.ellps, p.sphere);
+  var members = null;
   if (p.projName === 'gnom') {
-		members = new gnom(p, e);
+    members = new gnom(p, e);
   } else if (p.projName === 'aea') {
-		members = new aea(p, e);
+    members = new aea(p, e);
   } else if (p.projName === 'geocent') {
-		members = new geocent(p, e);
+    members = new geocent(p, e);
   } else if (p.projName === 'tmerc') {
-		members = new tmerc(p, e);
+    members = new tmerc(p, e);
   } else if (p.projName === 'lcc') {
-		members = new lcc(p, e);
-  } else return null
+    members = new lcc(p, e);
+  } else return null;
+
+  const uniforms = {};
+  Object.keys(members).forEach(function (key) {
+    uniforms[name+'.'+key] = members[key]
+  })
+console.log(p.projName, members.glsl());
   return {
-    name: p.projName,
-    members: function (name) {
-      var m = {}
-      Object.keys(members).forEach(function (key) {
-        m[name+'.'+key] = members[key]
-      })
-      return m
-    },
-		t: members.t,
-		forward: members.forward,
-		inverse: members.inverse
+    proj: p,
+    uniforms,
+    glsl_type: members.glsl_type,
+    glsl_forward: members.glsl_forward,
+    glsl_inverse: members.glsl_inverse,
+    glsl : members.glsl
   }
 }
 

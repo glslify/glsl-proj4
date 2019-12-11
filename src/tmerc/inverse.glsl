@@ -1,11 +1,11 @@
 vec3 tmerc_inverse (tmerc_t t, vec3 p) {
   float con;
   if (t.sphere > 0.5) {
-	  p.z -= t.z0;
-		p /= t.k0;
+    p.z -= t.p0.z;
+    p /= t.k0;
     float f = exp(p.x/t.a);
     float g = 0.5*(f-1.0/f);
-    con = t.lat0+p.y/t.a);
+    con = t.lat0+(p.y/t.a);
     float h = cos(con);
     return vec3(
       atan(g,h)+t.lon0,
@@ -13,12 +13,12 @@ vec3 tmerc_inverse (tmerc_t t, vec3 p) {
       p.z
     );
   }
-	p = (p-t.p0)/t.k0;
+  p = (p-t.p0)/t.k0;
   con = (t.ml0+p.y)/t.a;
   float phi = con;
   float dphi;
   for (int i = 0; i < 25; i++) {
-    dphi = (con-mlfn(t.e,phi))/t.e[0]
+    dphi = (con-mlfn(t.e,phi))/t.e[0];
     phi += dphi;
     if (abs(dphi) < EPSILON) break;
   }

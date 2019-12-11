@@ -1,3 +1,5 @@
+#ifndef PHI2Z_GLSL
+#define PHI2Z_GLSL
 float phi2z (float eccent, float ts) {
   float eccnth = 0.5 * eccent;
   float con, dphi;
@@ -10,3 +12,4 @@ float phi2z (float eccent, float ts) {
   }
   return -9999.0;
 }
+#endif
