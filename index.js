@@ -124,7 +124,7 @@ module.exports = function (str) {
     members: function (name) {
       var m = {}
       Object.keys(members).forEach(function (key) {
-        m[name+'.'+key] = members[key]
+        m[name === undefined ? key : name+'.'+key] = members[key]
       })
       return m
     }

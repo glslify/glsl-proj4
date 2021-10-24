@@ -70,7 +70,9 @@ Create a proj instance `p` from a proj4 string `str`.
 ## p.members(name)
 
 Return an object that maps member keys under the prefix `name` to values. You
-can pass this object as a struct uniform
+can pass this object as a struct uniform.
+
+If `name` is not provided, no prefix is used.
 
 ## p.name
 
