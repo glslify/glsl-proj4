@@ -102,19 +102,19 @@ String name of the projection.
 #pragma glslify: tmerc_inverse = require('glsl-proj4/tmerc/inverse')
 ```
 
-## vec3 proj_foward(proj_t t, vec3 pt)
+## `vec3 proj_foward(proj_t t, vec3 pt)`
 
 Forward project `pt` using the parameters from `t`.
 
-## vec3 proj_foward(proj_t t, vec2 pt)
+## `vec3 proj_foward(proj_t t, vec2 pt)`
 
 Forward project `pt` using the parameters from `t` with an altitude of 0.
 
-## vec3 proj_inverse(proj_t t, vec3 pt)
+## `vec3 proj_inverse(proj_t t, vec3 pt)`
 
 Inverse project `pt` using the parameters from `t`.
 
-## vec3 proj_inverse(proj_t t, vec2 pt)
+## `vec3 proj_inverse(proj_t t, vec2 pt)`
 
 Inverse project `pt` using the parameters from `t` and an altitude of 0.
 
