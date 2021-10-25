@@ -15,9 +15,26 @@ module.exports = function (str) {
   var p = parse(str)
   var e = ellipsoid[p.ellps || p.datumCode || 'WGS84'] || {}
   if (e && p) e = derive.sphere(e.a, e.b, e.rf, p.ellps, p.sphere)
-  var members = null
+  var members = getMembers(p,e)
+  return {
+    name: p.projName,
+    update: function (str) {
+      p = parse(str)
+      members = getMembers(p,e)
+    },
+    members: function (name) {
+      var m = {}
+      Object.keys(members).forEach(function (key) {
+        m[name === undefined ? key : name+'.'+key] = members[key]
+      })
+      return m
+    }
+  }
+}
+
+function getMembers(p,e) {
   if (p.projName === 'gnom') {
-    members = {
+    var members = {
       lon0: p.long0,
       lat0: p.lat0,
       x0: defined(p.x0,0),
@@ -30,8 +47,9 @@ module.exports = function (str) {
       rc: defined(p.rc, 1)
     }
     members.infinity_dist = 1000 * members.a
+    return members
   } else if (p.projName === 'aea') {
-    members = {
+    var members = {
       lon0: p.long0,
       lat0: p.lat0,
       lat1: p.lat1,
@@ -56,9 +74,10 @@ module.exports = function (str) {
       : Math.sin(members.lat1),
     members.c = ms1*ms1 + members.ns0*qs1
     members.rh = e.a * Math.sqrt(members.c - members.ns0 * qs0) / members.ns0
+    return members
   } else if (p.projName === 'geocent') {
     var a = defined(p.a,e.a), b = defined(p.b,e.b)
-    members = {
+    return {
       a: a,
       b: b,
       e: Math.sqrt((a*a-b*b)/(a*a)),
@@ -71,7 +90,7 @@ module.exports = function (str) {
   } else if (p.projName === 'tmerc') {
     var a = defined(p.a,e.a), b = defined(p.b,e.b)
     var es = defined(p.es, e.es, (a*a-b*b)/(a*a))
-    members = {
+    var members = {
       lon0: p.long0,
       lat0: p.lat0,
       x0: defined(p.x0,0),
@@ -89,6 +108,7 @@ module.exports = function (str) {
     }
     members.ml0 = a * mlfn(members.e0,members.e1,
       members.e2,members.e3,members.lat0)
+    return members
   } else if (p.projName === 'lcc') {
     var a = defined(p.a,e.a), b = defined(p.b,e.b)
     var e = Math.sqrt(1-(b/a)*(b/a))
@@ -102,7 +122,7 @@ module.exports = function (str) {
       : Math.sin(p.lat1)
     if (isNaN(ns)) ns = Math.sin(p.lat1)
     var f0 = ms1 / (ns * Math.pow(ts1, ns))
-    members = {
+    return {
       lon0: p.long0,
       lat0: p.lat0,
       lat1: p.lat1,
@@ -118,15 +138,7 @@ module.exports = function (str) {
       f0: f0,
       rh: a * f0 * Math.pow(ts0, ns)
     }
-  } else return null
-  return {
-    name: p.projName,
-    members: function (name) {
-      var m = {}
-      Object.keys(members).forEach(function (key) {
-        m[name === undefined ? key : name+'.'+key] = members[key]
-      })
-      return m
-    }
+  } else {
+    return null
   }
 }
