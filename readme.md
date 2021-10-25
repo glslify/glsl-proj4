@@ -74,6 +74,10 @@ can pass this object as a struct uniform.
 
 If `name` is not provided, no prefix is used.
 
+## p.update(str)
+
+Update the projection string.
+
 ## p.name
 
 String name of the projection.
