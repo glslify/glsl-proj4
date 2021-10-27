@@ -138,6 +138,16 @@ function getMembers(p,e) {
       f0: f0,
       rh: a * f0 * Math.pow(ts0, ns)
     }
+  } else if (p.projName === 'ortho') {
+    return {
+      lon0: defined(p.long0,0),
+      lat0: defined(p.lat0,0),
+      x0: defined(p.x0,0),
+      y0: defined(p.y0,0),
+      z0: defined(p.z0,0),
+      a: defined(p.a,e.a),
+      k0: defined(p.k0,p.k,1)
+    }
   } else {
     return null
   }
