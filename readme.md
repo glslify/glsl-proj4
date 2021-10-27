@@ -4,11 +4,12 @@ proj4 implementation for glsl
 
 implemented projections:
 
-* aea - [albers equal area](http://proj4.org/projections/aea.html)
+* aea - [albers equal area](http://proj4.org/operations/projections/aea.html)
 * geocent - [geocentric (ecef) coordinates](https://en.wikipedia.org/wiki/ECEF)
-* gnom - [gnomic projection](http://proj4.org/projections/gnom.html)
-* lcc - [lambert conformal conic](http://proj4.org/projections/lcc.html)
-* tmerc - [transverse mercator](http://proj4.org/projections/tmerc.html)
+* gnom - [gnomic projection](http://proj4.org/operations/projections/gnom.html)
+* lcc - [lambert conformal conic](http://proj4.org/operations/projections/lcc.html)
+* ortho - [ortho](https://proj.org/operations/projections/ortho.html)
+* tmerc - [transverse mercator](http://proj4.org/operations/projections/tmerc.html)
 
 # example
 
@@ -100,6 +101,10 @@ String name of the projection.
 #pragma glslify: lcc_t = require('glsl-proj4/lcc/t')
 #pragma glslify: lcc_forward = require('glsl-proj4/lcc/forward')
 #pragma glslify: lcc_inverse = require('glsl-proj4/lcc/inverse')
+
+#pragma glslify: ortho_t = require('glsl-proj4/ortho/t')
+#pragma glslify: ortho_forward = require('glsl-proj4/ortho/forward')
+#pragma glslify: ortho_inverse = require('glsl-proj4/ortho/inverse')
 
 #pragma glslify: tmerc_t = require('glsl-proj4/tmerc/t')
 #pragma glslify: tmerc_forward = require('glsl-proj4/tmerc/forward')
