@@ -25,13 +25,13 @@ var p = proj('+proj=aea +lat_1=16 +lat_2=24 +lat_0=19 +lon_0=-157 +x_0=0 +y_0=0'
 var mesh = require('./hawaii.json')
 var draw = regl({
   frag: `
-    precision mediump float;
+    precision highp float;
     void main () {
       gl_FragColor = vec4(0.5,0.5,0.5,1);
     }
   `,
   vert: glsl`
-    precision mediump float;
+    precision highp float;
     #pragma glslify: forward = require('glsl-proj4/aea/forward')
     #pragma glslify: proj_t = require('glsl-proj4/aea/t')
     uniform proj_t proj;

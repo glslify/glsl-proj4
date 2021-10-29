@@ -6,7 +6,7 @@ module.exports = function forward (str, pt, frag) {
   var draw = regl({
     frag: frag,
     vert: `
-      precision mediump float;
+      precision highp float;
       attribute vec2 position;
       void main () {
         gl_Position = vec4(position,0,1);
